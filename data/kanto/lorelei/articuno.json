@@ -1,9 +1,7 @@
 {
-    "id": "articuno",
-    "name": "Articuno",
-    "image": "/placeholder.svg?height=80&width=80",
-    "initialMove": "Utiliza Roca Afilada para matar a Articuno",
-    "tricks": [
-      {"detail": "Sale Nidoking así que cambia a Cloyster para luego cambiar a Metagross, Truco, Cloyster +6  // Carámbano para Lucario", "variant": []}
-    ]
-  }
+  "id": "articuno",
+  "name": "Articuno",
+  "image": "/placeholder.svg?height=80&width=80",
+  "initialMove": "Utiliza roca afilada para matar a articuno, sale nidoking así que cambia a cloyster para luego cambiar a metagross, truco, cloyster +6 // carámbano para lucario",
+  "tricks": []
+}

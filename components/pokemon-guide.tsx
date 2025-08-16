@@ -2,8 +2,41 @@
 
 import { useState, useEffect } from "react"
 import { ChevronDown } from "lucide-react"
-import regionConfig from "@/data/config-region.json"
+// Import JSON using require for better compatibility with Next.js
+const regionConfig = require('@/data/config-region.json')
 import { TrickItem } from "./TrickItem"
+
+// Custom hook to handle dynamic imports
+const useDynamicImports = () => {
+  const getPokemonFiles = (regionId: string, leaderId: string): string[] => {
+    try {
+      // This will be populated by webpack's require.context at build time
+      const context = (require as any).context(
+        '@/data', // Directory to search in
+        true,     // Search in subdirectories
+        /.*\.json$/, // Match all JSON files
+        'lazy'    // Lazy load the modules
+      );
+      
+      if (!context || !context.keys) {
+        console.error('Webpack context is not available');
+        return [];
+      }
+      
+      // Get all JSON files in the specified region/leader directory
+      const files = context.keys()
+        .filter((key: string) => key.includes(`/${regionId}/${leaderId}/`))
+        .map((key: string) => key.split('/').pop() || '');
+      
+      return files;
+    } catch (error) {
+      console.error(`Error getting files for ${regionId}/${leaderId}:`, error);
+      return [];
+    }
+  };
+
+  return { getPokemonFiles };
+};
 
 interface Pokemon {
   id?: string; // Optional
@@ -46,45 +79,8 @@ export default function PokemonGuide() {
   const [currentGuide, setCurrentGuide] = useState<GuideData | null>(null);
   const [lightMode, setLightMode] = useState(false);
   const [regions, setRegions] = useState<Region[]>(regionConfig.regions);
+  const { getPokemonFiles } = useDynamicImports();
 
-  // Predefined list of Pokémon files for each leader
-  const pokemonDataMap: Record<string, Record<string, string[]>> = {
-    kanto: {
-      lorelei: ['articuno.json', 'bronzong.json', 'chansey.json', 'claydol.json'],
-      bruno: [],
-      agatha: [],
-      lance: [],
-      blue: []
-    },
-    johto: {
-      will: [],
-      koga: [],
-      bruno: [],
-      karen: [],
-      lance: []
-    },
-    hoenn: {
-      sidney: [],
-      phoebe: [],
-      glacia: [],
-      drake: [],
-      wallace: []
-    },
-    sinnoh: {
-      aaron: [],
-      bertha: [],
-      flint: [],
-      lucian: [],
-      cynthia: []
-    },
-    unova: {
-      shauntai: [],
-      grimsley: [],
-      caitlin: [],
-      marshal: [],
-      alder: []
-    }
-  };
 
   // Load pokemon data for leaders when the component mounts
   useEffect(() => {
@@ -96,12 +92,13 @@ export default function PokemonGuide() {
         
         for (const leader of region.leaders) {
           try {
-            const pokemonFiles = pokemonDataMap[region.id]?.[leader.id] || [];
+            const pokemonFiles = getPokemonFiles(region.id, leader.id);
             const pokemons = [];
             
             // Import each file
             for (const file of pokemonFiles) {
               try {
+                // Use dynamic import with the full path
                 const module = await import(`@/data/${region.id}/${leader.id}/${file.replace('.json', '')}`);
                 const data = module.default || module;
                 pokemons.push({
