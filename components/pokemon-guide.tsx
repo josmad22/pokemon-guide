@@ -2,71 +2,86 @@
 
 import { useState } from "react"
 import { ChevronDown, ChevronRight } from "lucide-react"
-import guideData from "@/data/pokemon-guide.json"
+import regionConfig from "@/data/config-region.json";
 
 interface Pokemon {
-  id: string
-  name: string
-  image: string
-  tricks: string[]
+  id?: string; // Optional
+  name: string;
+  image?: string; // Optional
+  initialMove: string;
+  tricks: Tricks[];
 }
 
-interface Elite {
-  id: string
-  name: string
-  image: string
-  pokemon: Pokemon[]
+interface ConfigLeader {
+  id: string;
+  name: string;
+  image?: string;
 }
 
-interface Region {
-  id: string
-  name: string
-  image: string
-  elites: Elite[]
+interface Tricks{
+  detail: string;
+  variant: Tricks[];
+}
+
+interface Region extends ConfigLeader {
+  image?: string;
+  leaders: ConfigLeader[];
+}
+
+interface GuideLeader {
+  id: string;
+  pokemons: Pokemon[];
 }
 
 interface GuideData {
-  title: string
-  subtitle: string
-  regions: Region[]
+  leaders: GuideLeader[];
 }
 
 export default function PokemonGuide() {
-  const [expandedRegion, setExpandedRegion] = useState<string | null>(null)
-  const [expandedElite, setExpandedElite] = useState<string | null>(null)
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null)
-  const [lightMode, setLightMode] = useState(false)
+  const [expandedRegion, setExpandedRegion] = useState<string | null>(null);
+  const [expandedLeader, setExpandedLeader] = useState<string | null>(null);
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
+  const [currentGuide, setCurrentGuide] = useState<GuideData | null>(null);
+  const [lightMode, setLightMode] = useState(false);
 
-  const data = guideData as GuideData
+  const regions: Region[] = regionConfig.regions;
 
-  const handleRegionClick = (regionId: string) => {
+  const handleRegionClick = async (regionId: string) => {
     if (expandedRegion === regionId) {
-      setExpandedRegion(null)
-      setExpandedElite(null)
-      setSelectedPokemon(null)
+      setExpandedRegion(null);
+      setExpandedLeader(null);
+      setSelectedPokemon(null);
+      setCurrentGuide(null);
     } else {
-      setExpandedRegion(regionId)
-      setExpandedElite(null)
-      setSelectedPokemon(null)
+      setExpandedRegion(regionId);
+      setExpandedLeader(null);
+      setSelectedPokemon(null);
+      try {
+        const guide = await import(`@/data/guide-${regionId}.json`);
+        setCurrentGuide(guide.default || guide);
+      } catch (error) {
+        console.error(`Could not load guide for ${regionId}:`, error);
+        setCurrentGuide(null);
+      }
     }
-  }
+  };
 
-  const handleEliteClick = (eliteId: string) => {
-    if (expandedElite === eliteId) {
-      setExpandedElite(null)
-      setSelectedPokemon(null)
+  const handleLeaderClick = (leaderId: string) => {
+    if (expandedLeader === leaderId) {
+      setExpandedLeader(null);
+      setSelectedPokemon(null);
     } else {
-      setExpandedElite(eliteId)
-      setSelectedPokemon(null)
+      setExpandedLeader(leaderId);
+      setSelectedPokemon(null);
     }
-  }
+  };
 
   const handlePokemonClick = (pokemon: Pokemon) => {
-    setSelectedPokemon(selectedPokemon?.id === pokemon.id ? null : pokemon)
+    setSelectedPokemon(selectedPokemon?.name === pokemon.name ? null : pokemon)
   }
 
-  const currentRegion = data.regions.find((r) => r.id === expandedRegion)
-  const currentElite = currentRegion?.elites.find((e) => e.id === expandedElite)
+  const currentRegion = regions.find((r) => r.id === expandedRegion);
+  const currentLeaderPokemons = currentGuide?.leaders.find((l) => l.id === expandedLeader);
 
   return (
     <div
@@ -77,8 +92,8 @@ export default function PokemonGuide() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">{data.title}</h1>
-          <p className="text-gray-400 mb-4">{data.subtitle}</p>
+          <h1 className="text-4xl font-bold mb-2">Pokemon Guide</h1>
+          <p className="text-gray-400 mb-4">Select a region to see the elite leaders</p>
 
           {/* Tips Toggle */}
           <div className="flex items-center justify-center gap-2 mb-6">
@@ -89,7 +104,7 @@ export default function PokemonGuide() {
 
         {/* Regions Row */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-          {data.regions.map((region) => (
+          {regions.map((region) => (
             <div
               key={region.id}
               className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
@@ -107,22 +122,22 @@ export default function PokemonGuide() {
           ))}
         </div>
 
-        {/* Elites Row */}
-        {expandedRegion && currentRegion && currentRegion.elites.length > 0 && (
+        {/* Leaders Row */}
+        {expandedRegion && currentRegion && currentRegion.leaders.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 animate-in slide-in-from-top duration-300">
-            {currentRegion.elites.map((elite) => (
+            {currentRegion.leaders.map((leader) => (
               <div
-                key={elite.id}
+                key={leader.id}
                 className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
-                  expandedElite === elite.id
+                  expandedLeader === leader.id
                     ? "ring-2 ring-red-400 transform scale-105"
                     : "hover:transform hover:scale-102"
                 }`}
-                onClick={() => handleEliteClick(elite.id)}
+                onClick={() => handleLeaderClick(leader.id)}
               >
-                <img src={elite.image || "/placeholder.svg"} alt={elite.name} className="w-full h-24 object-cover" />
+                <img src={leader.image || "/placeholder.svg"} alt={leader.name} className="w-full h-24 object-cover" />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">{elite.name}</span>
+                  <span className="text-white font-bold text-lg">{leader.name}</span>
                 </div>
               </div>
             ))}
@@ -130,31 +145,33 @@ export default function PokemonGuide() {
         )}
 
         {/* Pokemon Grid */}
-        {expandedElite && currentElite && (
+        {expandedLeader && currentGuide && (
           <div className="mb-6 animate-in slide-in-from-top duration-300">
-            <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-3">
-              {currentElite.pokemon.map((pokemon) => (
-                <div
-                  key={pokemon.id}
-                  className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
-                    selectedPokemon?.id === pokemon.id
-                      ? "ring-2 ring-yellow-400 transform scale-110"
-                      : "hover:transform hover:scale-105"
-                  }`}
-                  onClick={() => handlePokemonClick(pokemon)}
-                >
-                  <img
-                    src={pokemon.image || "/placeholder.svg"}
-                    alt={pokemon.name}
-                    className="w-full h-16 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
-                    <span className="text-white text-xs font-medium p-1 w-full text-center bg-black bg-opacity-50">
-                      {pokemon.name}
-                    </span>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {currentGuide.leaders
+                .find(leader => leader.id === expandedLeader)?.pokemons
+                .map((pokemon) => (
+                  <div
+                    key={pokemon.id || pokemon.name}
+                    className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
+                      selectedPokemon?.name === pokemon.name
+                        ? "ring-2 ring-yellow-400 transform scale-105"
+                        : "hover:transform hover:scale-105"
+                    }`}
+                    onClick={() => handlePokemonClick(pokemon)}
+                  >
+                    <img
+                      src={pokemon.image || "/placeholder.svg"}
+                      alt={pokemon.name}
+                      className="w-full h-24 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
+                      <span className="text-white text-sm font-medium p-2 w-full text-center bg-black bg-opacity-60">
+                        {pokemon.name}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         )}
@@ -163,26 +180,32 @@ export default function PokemonGuide() {
         {selectedPokemon && (
           <div className="bg-gray-800 rounded-lg p-6 animate-in slide-in-from-bottom duration-300">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <span>Use Trick:</span>
+              <span>{selectedPokemon.initialMove}:</span>
             </h3>
-            <div className="space-y-2">
-              {selectedPokemon.tricks.map((trick, index) => (
-                <div
-                  key={index}
-                  className={`p-3 rounded-lg ${
-                    trick.includes("if opponent")
-                      ? "bg-blue-900 bg-opacity-50 border-l-4 border-blue-400"
-                      : "bg-gray-700"
-                  }`}
-                >
-                  <div className="flex items-start gap-2">
-                    {trick.includes("if opponent") && (
-                      <ChevronRight className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                    )}
-                    <span className="text-sm leading-relaxed">{trick}</span>
+            <div className="space-y-3">
+              {selectedPokemon.tricks && selectedPokemon.tricks.length > 0 ? (
+                selectedPokemon.tricks.map((trick, index) => (
+                  <div
+                    key={index}
+                    className={`p-3 rounded-lg ${
+                      trick.detail.toLowerCase().includes("if")
+                        ? "bg-blue-900 bg-opacity-50 border-l-4 border-blue-400"
+                        : "bg-gray-700"
+                    }`}
+                  >
+                    <div className="flex items-start gap-2">
+                      { trick.detail.toLowerCase().includes("if") && (
+                        <ChevronRight className="w-4 h-4 text-blue-400 mt-1 flex-shrink-0" />
+                      )}
+                      <span className="text-sm leading-relaxed">{trick.detail}</span>
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="text-gray-400 text-center py-4">
+                  No strategies available for {selectedPokemon.name} yet.
                 </div>
-              ))}
+              )}
             </div>
           </div>
         )}

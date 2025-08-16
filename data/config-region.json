@@ -1,0 +1,64 @@
+{
+  "regions": [
+    {
+      "id": "kanto",
+      "name": "Kanto",
+      "image": "/placeholder.svg?height=120&width=300",
+      "leaders": [
+        { "id": "lorelei", "name": "Lorelei" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "bruno", "name": "Bruno" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "agatha", "name": "Agatha" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "lance", "name": "Lance" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "blue", "name": "Blue" , "image": "/placeholder.svg?height=80&width=80"}
+      ]
+    },
+    {
+      "id": "johto",
+      "name": "Johto",
+      "image": "/placeholder.svg?height=120&width=300",
+      "leaders": [
+        { "id": "will", "name": "Will" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "koga", "name": "Koga" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "bruno", "name": "Bruno" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "karen", "name": "Karen" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "lance", "name": "Lance" , "image": "/placeholder.svg?height=80&width=80"}
+      ]
+    },
+    {
+      "id": "hoenn",
+      "name": "Hoenn",
+      "image": "/placeholder.svg?height=120&width=300",
+      "leaders": [
+        { "id": "sidney", "name": "Sidney" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "phoebe", "name": "Phoebe" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "glacia", "name": "Glacia" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "drake", "name": "Drake" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "wallace", "name": "Wallace" , "image": "/placeholder.svg?height=80&width=80"}
+      ]
+    },
+    {
+      "id": "sinnoh",
+      "name": "Sinnoh",
+      "image": "/placeholder.svg?height=120&width=300",
+      "leaders": [
+        { "id": "aaron", "name": "Aaron" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "bertha", "name": "Bertha" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "flint", "name": "Flint" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "lucian", "name": "Lucian" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "cynthia", "name": "Cynthia" , "image": "/placeholder.svg?height=80&width=80"}
+      ]
+    },
+    {
+      "id": "unova",
+      "name": "Unova",
+      "image": "/placeholder.svg?height=120&width=300",
+      "leaders": [
+        { "id": "shauntai", "name": "Shauntai" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "grimsley", "name": "Grimsley" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "caitlin", "name": "Caitlin" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "marshal", "name": "Marshal" , "image": "/placeholder.svg?height=80&width=80"},
+        { "id": "alder", "name": "Alder" , "image": "/placeholder.svg?height=80&width=80"}
+      ]
+    }
+  ]
+}
