@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, ChevronRight } from "lucide-react"
-import regionConfig from "@/data/config-region.json";
+import { ChevronDown } from "lucide-react"
+import regionConfig from "@/data/config-region.json"
+import { TrickItem } from "./TrickItem"
 
 interface Pokemon {
   id?: string; // Optional
@@ -185,25 +186,11 @@ export default function PokemonGuide() {
             <div className="space-y-3">
               {selectedPokemon.tricks && selectedPokemon.tricks.length > 0 ? (
                 selectedPokemon.tricks.map((trick, index) => (
-                  <div
-                    key={index}
-                    className={`p-3 rounded-lg ${
-                      trick.detail.toLowerCase().includes("if")
-                        ? "bg-blue-900 bg-opacity-50 border-l-4 border-blue-400"
-                        : "bg-gray-700"
-                    }`}
-                  >
-                    <div className="flex items-start gap-2">
-                      { trick.detail.toLowerCase().includes("if") && (
-                        <ChevronRight className="w-4 h-4 text-blue-400 mt-1 flex-shrink-0" />
-                      )}
-                      <span className="text-sm leading-relaxed">{trick.detail}</span>
-                    </div>
-                  </div>
+                  <TrickItem key={index} trick={trick} />
                 ))
               ) : (
                 <div className="text-gray-400 text-center py-4">
-                  No strategies available for {selectedPokemon.name} yet.
+                  No hay estrategias disponibles para {selectedPokemon.name} aún.
                 </div>
               )}
             </div>
