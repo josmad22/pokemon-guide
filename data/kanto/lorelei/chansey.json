@@ -1,0 +1,10 @@
+{
+    "id": "chansey",
+    "name": "Chansey",
+    "image": "/placeholder.svg?height=80&width=80",
+    "initialMove": "TRUCO",
+    "tricks": [
+        {"detail": "Si utiliza MOV. SÍSMICO cambia a Scrafty, utiliza +1 luego + Raíz Energía para recuperar salud y boostea +1 (Paliza para Vileplume y Bronzong) ", "variant": []},
+        {"detail": "Si sale NIDOKING cambia a Excadrill +6 + 0", "variant": []}
+    ]
+}
