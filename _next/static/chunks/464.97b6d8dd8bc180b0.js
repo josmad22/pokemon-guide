@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[464],{9464:e=>{e.exports=JSON.parse('{"leaders":[{"id":"shauntai","pokemons":[]},{"id":"grimsley","pokemons":[]},{"id":"caitlin","pokemons":[]},{"id":"marshal","pokemons":[]},{"id":"alder","pokemons":[]}]}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[961],{961:a=>{a.exports=JSON.parse('{"id":"claydol","name":"Claydol","image":"/placeholder.svg?height=80&width=80","initialMove":"TRAMPA ROCAS","tricks":[{"detail":"Cambia a Cloyster, luego a Metagross/ Contra Lapras, usa Truco para bloquear Hidrobomba, Poliwrath +6+2","variant":[]}]}')}}]);
