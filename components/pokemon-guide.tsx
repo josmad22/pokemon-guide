@@ -17,6 +17,7 @@ interface ConfigLeader {
   id: string;
   name: string;
   image?: string;
+  pokemons?: Pokemon[];
 }
 
 interface Tricks{

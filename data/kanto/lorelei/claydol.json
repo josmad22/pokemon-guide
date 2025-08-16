@@ -4,6 +4,6 @@
     "image": "/placeholder.svg?height=80&width=80",
     "initialMove": "TRAMPA ROCAS",
     "tricks": [
-        {"detail": "Trampa Rocas, cambia a Cloyster, luego a Metagross/ Contra Lapras, usa Truco para bloquear Hidrobomba, Poliwrath +6+2", "variant": []}
+        {"detail": "Cambia a Cloyster, luego a Metagross/ Contra Lapras, usa Truco para bloquear Hidrobomba, Poliwrath +6+2", "variant": []}
     ]
 }
