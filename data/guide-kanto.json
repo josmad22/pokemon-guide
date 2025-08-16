@@ -4,39 +4,6 @@
       "id": "lorelei",
       "pokemons": [
         {
-            "id": "dragonite",
-            "name": "Dragonite",
-            "image": "/placeholder.svg?height=80&width=80",
-            "initialMove": "CAMBIA A CHANDELURE",
-            "tricks": [
-                {"detail": "NO CAMBIA, utiliza Poder Oculto, si aún sigue en el campo y no cambia, sigue usando Poder Oculto", "variant": [
-                    {"detail": "Si luego entra LAPRAS, cambia a Poliwrath 6+2. (Si sorpresivamente utiliza Rayo cambia a Excadrill 6+2)", "variant": []},
-                    {"detail": "Si luego entra LUCARIO, cambia a Scrafty para luego volver con Chandelure, usar Truco para encerrar en Roca Afilada o Triturar, saca a Scrafty +2", "variant": []}
-                ]},
-                {"detail": "Si cambia a SLOWBRO usa Truco con Chandelure para encerrar en Escaldar, cambia a Poliwrath 6+2", "variant": []}
-            ]
-        },
-        {
-            "id": "exeggutor",
-            "name": "Exeggutor",
-            "image": "/placeholder.svg?height=80&width=80",
-            "initialMove": "TRUCO",
-            "tricks": [
-                {"detail": "MAGNEZONE, cambia a Excadrill y matalo con Terremoto, debería de salir Lapras, cambia a Poliwrath 6+2 // Si sale Mantine, cambia a Poliwrath, luego a Chandelure, Truco y saca a Poliwrath 2+6 ( Falta Testear, por favor reportar soluciones)", "variant": []},
-                {"detail": "NIDOKING, Excadrill coloca Trampa Rocas, luego Cloyster +6", "variant": []}
-            ]
-        },
-        {
-            "id": "gorluck",
-            "name": "Gorluck",
-            "image": "/placeholder.svg?height=80&width=80",
-            "initialMove": "TRUCO (Verificar ya que es lo mismo que Exeggutor)",
-            "tricks": [
-                {"detail": "Si cambia a Magneton / Magnezone, cambia a Excadrill y matalo con Terremoto, debería de salir Lapras, cambia a Poliwrath 6+2", "variant": []},
-                {"detail": "Si cambia a Nidoking, cambia a Cloyster +6", "variant": []}
-            ]
-        },
-        {
             "id": "hariyama",
             "name": "Hariyama",
             "image": "/placeholder.svg?height=80&width=80",

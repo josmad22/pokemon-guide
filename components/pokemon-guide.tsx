@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronDown } from "lucide-react"
 import regionConfig from "@/data/config-region.json"
 import { TrickItem } from "./TrickItem"
@@ -45,8 +45,98 @@ export default function PokemonGuide() {
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon | null>(null);
   const [currentGuide, setCurrentGuide] = useState<GuideData | null>(null);
   const [lightMode, setLightMode] = useState(false);
+  const [regions, setRegions] = useState<Region[]>(regionConfig.regions);
 
-  const regions: Region[] = regionConfig.regions;
+  // Predefined list of Pokémon files for each leader
+  const pokemonDataMap: Record<string, Record<string, string[]>> = {
+    kanto: {
+      lorelei: ['articuno.json', 'bronzong.json', 'chansey.json', 'claydol.json'],
+      bruno: [],
+      agatha: [],
+      lance: [],
+      blue: []
+    },
+    johto: {
+      will: [],
+      koga: [],
+      bruno: [],
+      karen: [],
+      lance: []
+    },
+    hoenn: {
+      sidney: [],
+      phoebe: [],
+      glacia: [],
+      drake: [],
+      wallace: []
+    },
+    sinnoh: {
+      aaron: [],
+      bertha: [],
+      flint: [],
+      lucian: [],
+      cynthia: []
+    },
+    unova: {
+      shauntai: [],
+      grimsley: [],
+      caitlin: [],
+      marshal: [],
+      alder: []
+    }
+  };
+
+  // Load pokemon data for leaders when the component mounts
+  useEffect(() => {
+    const loadPokemonData = async () => {
+      const updatedRegions = [];
+      
+      for (const region of regionConfig.regions) {
+        const updatedLeaders = [];
+        
+        for (const leader of region.leaders) {
+          try {
+            const pokemonFiles = pokemonDataMap[region.id]?.[leader.id] || [];
+            const pokemons = [];
+            
+            // Import each file
+            for (const file of pokemonFiles) {
+              try {
+                const module = await import(`@/data/${region.id}/${leader.id}/${file.replace('.json', '')}`);
+                const data = module.default || module;
+                pokemons.push({
+                  ...data,
+                  id: data.id || data.name?.toLowerCase() || file.replace('.json', ''),
+                });
+              } catch (error) {
+                console.error(`Error importing ${file}:`, error);
+              }
+            }
+            
+            updatedLeaders.push({
+              ...leader,
+              pokemons,
+            });
+          } catch (error) {
+            console.error(`Error loading pokemon data for ${leader.name}:`, error);
+            updatedLeaders.push({
+              ...leader,
+              pokemons: [],
+            });
+          }
+        }
+        
+        updatedRegions.push({
+          ...region,
+          leaders: updatedLeaders,
+        });
+      }
+
+      setRegions(updatedRegions);
+    };
+
+    loadPokemonData();
+  }, []);
 
   const handleRegionClick = async (regionId: string) => {
     if (expandedRegion === regionId) {
@@ -83,7 +173,11 @@ export default function PokemonGuide() {
   }
 
   const currentRegion = regions.find((r) => r.id === expandedRegion);
-  const currentLeaderPokemons = currentGuide?.leaders.find((l) => l.id === expandedLeader);
+  // Find the current leader from the regions data to get the pokemons
+  const currentLeader = regions
+    .find((r) => r.id === expandedRegion)
+    ?.leaders.find((l) => l.id === expandedLeader);
+  const currentLeaderPokemons = currentLeader?.pokemons || [];
 
   return (
     <div
@@ -94,8 +188,8 @@ export default function PokemonGuide() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">Pokemon Guide</h1>
-          <p className="text-gray-400 mb-4">Select a region to see the elite leaders</p>
+          <h1 className="text-4xl font-bold mb-2">Farm Liga PokeMMO</h1>
+          <p className="text-gray-400 mb-4">Selecciona una región para ver los líderes</p>
 
           {/* Tips Toggle */}
           <div className="flex items-center justify-center gap-2 mb-6">
@@ -150,9 +244,7 @@ export default function PokemonGuide() {
         {expandedLeader && currentGuide && (
           <div className="mb-6 animate-in slide-in-from-top duration-300">
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {currentGuide.leaders
-                .find(leader => leader.id === expandedLeader)?.pokemons
-                .map((pokemon) => (
+              {currentLeaderPokemons.map((pokemon) => (
                   <div
                     key={pokemon.id || pokemon.name}
                     className={`relative cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
