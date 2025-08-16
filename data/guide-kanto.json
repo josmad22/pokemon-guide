@@ -32,7 +32,109 @@
             ]},
             {"detail": "LUCARIO, Chandelure utiliza Truco para luego cambiar a Scrafty +3", "variant": []}
           ]
+        },
+        {
+            "id": "chansey",
+            "name": "Chansey",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "TRUCO",
+            "tricks": [
+                {"detail": "Si utiliza MOV. SÍSMICO cambia a Scrafty, utiliza +1 luego + Raíz Energía para recuperar salud y boostea +1 (Paliza para Vileplume y Bronzong) ", "variant": []},
+                {"detail": "Si sale NIDOKING cambia a Excadrill +6 + 0", "variant": []}
+            ]
+        },
+        {
+            "id": "claydol",
+            "name": "Claydol",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "TRAMPA ROCAS",
+            "tricks": [
+                {"detail": "Trampa Rocas, cambia a Cloyster, luego a Metagross/ Contra Lapras, usa Truco para bloquear Hidrobomba, Poliwrath +6+2", "variant": []}
+            ]
+        },
+        {
+            "id": "dragonite",
+            "name": "Dragonite",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "CAMBIA A CHANDELURE",
+            "tricks": [
+                {"detail": "NO CAMBIA, utiliza Poder Oculto, si aún sigue en el campo y no cambia, sigue usando Poder Oculto", "variant": [
+                    {"detail": "Si luego entra LAPRAS, cambia a Poliwrath 6+2. (Si sorpresivamente utiliza Rayo cambia a Excadrill 6+2)", "variant": []},
+                    {"detail": "Si luego entra LUCARIO, cambia a Scrafty para luego volver con Chandelure, usar Truco para encerrar en Roca Afilada o Triturar, saca a Scrafty +2", "variant": []}
+                ]},
+                {"detail": "Si cambia a SLOWBRO usa Truco con Chandelure para encerrar en Escaldar, cambia a Poliwrath 6+2", "variant": []}
+            ]
+        },
+        {
+            "id": "exeggutor",
+            "name": "Exeggutor",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "TRUCO",
+            "tricks": [
+                {"detail": "MAGNEZONE, cambia a Excadrill y matalo con Terremoto, debería de salir Lapras, cambia a Poliwrath 6+2 // Si sale Mantine, cambia a Poliwrath, luego a Chandelure, Truco y saca a Poliwrath 2+6 ( Falta Testear, por favor reportar soluciones)", "variant": []},
+                {"detail": "NIDOKING, Excadrill coloca Trampa Rocas, luego Cloyster +6", "variant": []}
+            ]
+        },
+        {
+            "id": "gorluck",
+            "name": "Gorluck",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "TRUCO (Verificar ya que es lo mismo que Exeggutor)",
+            "tricks": [
+                {"detail": "Si cambia a Magneton / Magnezone, cambia a Excadrill y matalo con Terremoto, debería de salir Lapras, cambia a Poliwrath 6+2", "variant": []},
+                {"detail": "Si cambia a Nidoking, cambia a Cloyster +6", "variant": []}
+            ]
+        },
+        {
+            "id": "hariyama",
+            "name": "Hariyama",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "CAMBIA A CHANDELURE",
+            "tricks": [
+                {"detail": "SI NO CAMBIA utiliza Truco para encerrar en Roca Afilada, cambia a Scrafty +3 (Utiliza A Bocajarro contra Hariyama  y Gliscor)(Puño Drenaje contra Lapras)", "variant": [
+                    {"detail": "Si Entra Nidoking, cambia a Excadrill y luego cambia a Chandelure para usar Truco y encerrar Tierra viva, vuelve a Excadrill 4+2", "variant": []}
+                ]},
+                {"detail": "NIDOKING, utiliza Truco para encerrar en Tierra Viva, cambia a Excadrill 4+2 (Utiliza Terremoto para acabar con Lapras)", "variant": [
+                    {"detail": "Si entra Lapras mientras te preparas, cambia a Poliwrath 6+2 ", "variant": []}
+                ]}
+            ]
+        },
+        {
+            "id": "jynx",
+            "name": "Jynx",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "Cambia a Scrafty +2",
+            "tricks": [
+                {"detail": "(Utiliza A Bocajarro para acabar con Hariyama, Paliza con Togekiss y Puño drenaje con Lapras)", "variant": []}
+            ]
+        },
+        {
+            "id": "lapras",
+            "name": "Lapras",
+            "image": "/placeholder.svg?height=80&width=80",
+            "initialMove": "TRUCO",
+            "tricks": [
+                {"detail": "Surf → Cambia a Poliwrath 6+2 // (Si entra Slowbro, cambia a Chandelure, Truco para encerrar en Escaldar, luego cambia a Poliwrath 6+2)", "variant": []},
+                {"detail": "Rayo → Cambia a Excadrill 6+2 // (Si entra Slowbro, cambia a Chandelure, Truco para encerrar en Escaldar, luego cambia a Poliwrath 6+2)", "variant": []},
+                {"detail": "Taladradora→ Cambia a Excadrill para poner Trampa Rocas, luego cambia a Chandelure para hacer Truco a Mantine, saca a Scrafty +2 // (A Mantine hay que golpearlo 2 veces) // Si te saca crítico usa Raíz Energía", "variant": []},
+                {"detail": "Hidrobomba → Usa Trampa Rocas, luego cambia a Poliwrath 2 Veces Tambor +Velocidad X.", "variant": [
+                    {"detail": "(Si Metagross no aguanta el ataque y no puedes poner Trampa Rocas, dale Defensa X a Poliwrath y usa 2 tambores.)", "variant": []},
+                    {"detail": "Lucario te mata → Saca a Chandelure, Truco para encerrar en Triturar / Roca Afilada, saca a Scrafty +2", "variant": []}
+                ]},
+                {"detail": "Nidoqueen → Observa el ítem intercambiado:", "variant": [
+                    {"detail": "Vidasfera → Cambia a Excadrill 6+2 (Mata a Lapras con Terremoto)", "variant": []},
+                    {"detail": "Casco Dentado → Cambia a Excadrill 4+2, luego pon Trampa Rocas (Terremoto para matar a Nido)", "variant": []}
+                ]},
+                {"detail": "", "variant": []},
+                {"detail": "", "variant": []},
+                {"detail": "", "variant": []},
+                {"detail": "", "variant": []},
+                {"detail": "", "variant": []}
+
+            ]
         }
+
+
       ]
     },
     {
